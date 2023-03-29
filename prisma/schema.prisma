@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model api_keys{
+  ID Int @id @default(autoincrement())
+  Name String @unique
+  API_key String @default(uuid())
+  Blocked Boolean @default(true)
+  Admin Boolean @default(false)
+
+  permissions permissions[]
+}
+
+model permissions{
+  ID String @id @default(uuid())
+  APIID Int 
+  permission String
+  
+  API api_keys @relation(fields: [APIID], references:[ID])
+}
