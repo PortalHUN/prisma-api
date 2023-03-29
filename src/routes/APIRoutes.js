@@ -1,7 +1,13 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
-router.post('/create', require('../controllers/API/CreateAPIKey'));
+router.post("/", require("../controllers/API/CreateAPIKey"));
 
-router.post('/show', require('../controllers/API/ShowAPIKey'));
+router.get("/", require("../controllers/API/ShowAPIKey"));
+
+router.put("/block", require("../controllers/API/BlockAPIKey"));
+
+router.put("/admin", require("../controllers/API/AdminAPIKey"));
+
+router.put("/uuid", require("../controllers/API/RefreshUUID"));
 
 module.exports = router;
