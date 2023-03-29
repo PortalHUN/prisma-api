@@ -4,11 +4,9 @@ const BlockAPIKey = async (req, res) => {
   const { ID, Name } = req.body;
   if (!ID || !Name) return res.status(400).json({ err: "Invalid data" });
 
-  const key =
-    await db.$queryRaw`SELECT Blocked FROM api_keys WHERE ID = ${ID} AND Name = ${Name};`;
+  const key = await db.$queryRaw`SELECT Blocked FROM api_keys WHERE ID = ${ID} AND Name = ${Name};`;
 
-  if (!key || key.length == 0)
-    return res.status(400).json({ err: "No App found" });
+  if (!key || key.length == 0) return res.status(400).json({ err: "No App found" });
 
   await db.api_keys.update({
     where: { ID },
@@ -16,9 +14,7 @@ const BlockAPIKey = async (req, res) => {
   });
 
   return res.status(200).json({
-    message: `Successfully ${
-      key[0].Blocked ? "unblocked" : "blocked"
-    } this API key`,
+    message: `Successfully ${key[0].Blocked ? "unblocked" : "blocked"} this API key`,
   });
 };
 
