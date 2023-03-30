@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
 
 //ADMIN ROUTES
 app.use("/admin/api/keys", permission("Admin"), require("./src/routes/APIRoutes"));
+app.use("/admin/api/permission", permission("Admin"), require("./src/routes/PermissionRoutes"));
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`[APP] Application is running on port ${process.env.PORT || 3000}...`);
