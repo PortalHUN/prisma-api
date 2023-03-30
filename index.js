@@ -10,6 +10,9 @@ const db = require("./src/utils/db");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//Permission middleware
+const permission = require("./src/middlewares/CheckPermission");
+
 //ALLTIME MIDDLEWARES
 app.use(require("./src/middlewares/CheckAPIKey"));
 
@@ -18,7 +21,7 @@ app.get("/", (req, res) => {
 });
 
 //ADMIN ROUTES
-app.use("/admin/api/keys", require("./src/routes/APIRoutes"));
+app.use("/admin/api/keys", permission("Admin"), require("./src/routes/APIRoutes"));
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`[APP] Application is running on port ${process.env.PORT || 3000}...`);
