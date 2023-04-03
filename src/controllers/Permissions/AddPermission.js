@@ -3,11 +3,11 @@ const db = require("../../utils/db");
 
 const AddPermission = async (req, res) => {
   const { ID, permissions } = req.body;
-  if (!ID || !permissions || permissions.length == 0) return res.status(400).json({ err: "Invalid data" });
+  if (!ID || !Number.isInteger(ID) || !permissions || !Array.isArray(permissions)) return res.status(400).json({ err: "Invalid data" });
 
   const exists = await db.api_keys.findUnique({
     where: {
-      ID,
+      ID: ID,
     },
     select: {
       ID: true,

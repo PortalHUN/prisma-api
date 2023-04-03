@@ -1,1 +1,1 @@
-module.exports = ["static", "random_1", "random_2"];
+module.exports = ["student.add", "student.remove", "student.modify", "mark.add", "mark.remove", "mark.update"];

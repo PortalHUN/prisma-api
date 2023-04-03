@@ -18,7 +18,6 @@ model api_keys{
   Admin Boolean @default(false)
 
   permissions permissions[]
-  collections question_collection[]
 }
 
 model permissions{
@@ -29,49 +28,20 @@ model permissions{
   API api_keys @relation(fields: [APIID], references:[ID])
 }
 
-model question_collection{
-  ID Int @id @default(autoincrement())
-  Name String @unique
-  AuthorID Int
-  bool_q bool_q[]
-  string_q string_q[]
-  multiple_q multiple_q[]
+model Student{
+  ID String @id @default(uuid())
+  Name String
+  CreatedAt DateTime @default(now())
 
-  Author api_keys @relation(fields: [AuthorID], references:[ID])
+  Marks mark[]
 }
 
-model bool_q{
+model mark{
   ID String @id @default(uuid())
-  question String
-  Answer Boolean
-  CollectionID Int
+  StudentID String
+  Mark Int @default(1)
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
 
-  Collection question_collection @relation(fields: [CollectionID], references:[ID])
-}
-
-model string_q{
-  ID String @id @default(uuid())
-  question String
-  Answer String
-  CollectionID Int
-
-  Collection question_collection @relation(fields: [CollectionID], references:[ID])
-}
-
-model multiple_q{
-  ID String @id @default(uuid())
-  CollectionID Int
-  question String
-  ListAnswers multiple_qa[]
-  
-  Collection question_collection @relation(fields: [CollectionID], references:[ID])
-}
-
-model multiple_qa{
-  ID String @id @default(uuid())
-  Text String
-  multiple_qa String
-  Answer Boolean @default(false)
-
-  Question multiple_q @relation(fields: [multiple_qa], references:[ID])
+  Student Student @relation(fields: [StudentID], references: [ID])
 }
