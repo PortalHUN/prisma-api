@@ -11,6 +11,7 @@ const GetStudent = async (req,res)=>{
         select:{
             ID: true,
             Name: true,
+            Class: true,
             Marks:{
                 select:{
                     ID: true,

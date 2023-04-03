@@ -28,12 +28,24 @@ model permissions{
   API api_keys @relation(fields: [APIID], references:[ID])
 }
 
+model Class{
+  ID String @id @default(uuid())
+  Name String @unique
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime @updatedAt
+
+  students Student[]
+}
+
 model Student{
   ID String @id @default(uuid())
   Name String
+  ClassID String
   CreatedAt DateTime @default(now())
 
   Marks mark[]
+
+  Class Class @relation(fields: [ClassID], references: [ID])
 }
 
 model mark{
