@@ -1,4 +1,4 @@
-//DB String
+//DB Stringa
 //DATABASE_URL=mysql://root:@localhost:3306/api
 
 require("dotenv").config();
